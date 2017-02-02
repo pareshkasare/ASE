@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCgKo7fgD3t43PR-qUCdiqXLg63bmx7x2Y&v=3.exp&libraries=places"></script>
+
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 450px}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #553255;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+    </style>
+    <style>
+        #map-canvas {
+            width: 500px;
+            height: 250px;
+        }
+
+    </style>
+</head>
+<body >
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><img src="../images/maps_logo.jpg" height="30px" width="40px"/></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid text-center" ng-controller="TodoController">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+        </div>
+        <p class="col-sm-8">
+            <h1 align="center">Get Directions and Weather</h1>
+
+                <div><input ng-model="Source" googleplace placeholder="Source" id="Source"/></div>
+                <div><input ng-model="Destination" googleplace placeholder="Destination" id="Destination"/></div>
+
+            <div ng-controller="googlemapoutput">
+                        <button id="btn" ng-click="calcRoute()">
+                            Get Direction
+                        </button>
+
+                <div ng-controller="weatherctrl">
+                    <button id="btn" ng-click="getWeather()"> Show Weather </button> </div>
+            </div> <br/>
+        <div class="container" id="map-canvas" class="map-canvas" style="align: center"></div>
+        <div ng-bind="settext"></div>
+        <div class="weatherModule" align="center">
+            <div class="currentConditions" ng-bind-html-unsafe="currentweather.html"></div>
+
+            <div class="currentIcon" ng-bind-html-unsafe="currentIcon.html"></div>
+        </div>
+
+    </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+</div>
+</div>
+
+<footer class="container-fluid text-center">
+
+</footer>
+<script src="../JS/app.js" type="application/javascript"></script>
+</body>
+</html>
