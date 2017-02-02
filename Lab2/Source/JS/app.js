@@ -107,8 +107,8 @@ app.controller("googlemapoutput", function ($scope) {
             mapOptions);
     };
     $scope.calcRoute = function () {
-        var end = document.getElementById('Source').value;
-        var start = document.getElementById('Destination').value;
+        var start = document.getElementById('Source').value;
+        var end = document.getElementById('Destination').value;
 
         var request = {
             origin: start,
