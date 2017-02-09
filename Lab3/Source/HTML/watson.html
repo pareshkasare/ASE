@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="visual_app" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Login with Facebook Oauth2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="../CSS/jumbotron-narrow.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+</head>
+
+<body>
+<div id="fb-root"></div>
+
+<script>
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            setTimeout(function(){window.location.href='index.html'});
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            setTimeout(function(){window.location.href='index.html'});
+        }
+    }
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1948719448693642',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1948719448693642";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML =
+                response.name + ', You are now logged in! <br> Go ahead and use IBM Watson image processing';
+        });
+    }
+
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+            </ul>
+        </nav>
+        <h3 class="text-muted">ASE Lab3</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Lab 3 Home Page</h1>
+        <p class="lead">Now that you have logged in, Go ahead and amaze yourself with Image processing and Text to Speech
+        features offered by IBM Watson!!!</p>
+        <p><div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();">Use Facebook Login here!</div></p>
+        <div id="status">
+        </div></div>
+
+    <div ng-controller="get_vision_response" class="row marketing">
+        <div class="col-lg-12">
+            <h4 class="alert alert-info" role="alert">IBM Watson - Image processing</h4>
+            <div  align="center">
+                <label for="basic-url">Image URL</label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">https://example.com/images/abc.png</span>
+                    <input type="text" class="form-control" id="url" aria-describedby="basic-addon3">
+                </div><br>
+                <button type="button" class="btn btn-primary" ng-click="getvision_response()">Let's hear what image contains!!!</button>
+            </div>
+        </div><br>
+        <div class="col-lg-12">
+
+            <h4 class="alert alert-success" role="alert">Text to Speech for following text:</h4><br>
+            <div class="col-lg-4"><img ng-src="{{myVar}}" width="100px" height="100px"></div>
+            <div class="col-lg-8">{{string_text}}</div>
+
+            <div id="player">
+                <audio contols autoplay ng-src="{{audiofile}}"></audio>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; UMKC</p>
+    </footer>
+
+</div>
+<script src="../JS/app.js"></script>
+</body>
+</html>
