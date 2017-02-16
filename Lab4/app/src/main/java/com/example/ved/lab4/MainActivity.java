@@ -74,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        System.out.println("Error in call");
+                        final String error_text= "Something went wrong!!!";
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                moutputTextView.setText(error_text);
+                            }
+                        });
                         System.out.println(e.getMessage());
                     }
                     @Override
