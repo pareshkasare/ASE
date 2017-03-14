@@ -1,0 +1,32 @@
+<ion-view view-title="Home Page">
+  <ion-content padding>
+
+<ion-list>
+
+    <ion-item>
+        <h4 >IBM Watson - Image processing</h4>
+        </ion-item>
+    
+  <ion-item>
+      <div ng-controller="get_vision_response">
+                <br><label for="basic-url">Image URL</label>
+          
+                    <br><input type="text" class="form-control" ng-model="url">
+
+                <br><button type="button" class="button button-block button-positive" ng-click="getvision_response()">Let's hear what's in image!!!</button>
+
+
+    <h4 >Text to Speech for following text will be audible : {{string_text}}</h4> 
+
+              <img ng-src="{{myVar}}" width="100px" height="100px">
+    <div id="player">
+                <audio contols autoplay ng-src="{{audiofile}}"></audio>
+            </div>
+        </div>
+      </ion-item>
+    
+</ion-list>
+    
+  </ion-content>
+</ion-view>
+

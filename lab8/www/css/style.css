@@ -1,0 +1,44 @@
+/* Empty. Add your own CSS if you like */
+/*.scroll-content{
+ background: url(../img/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}*/
+.scroll-content{
+  background-color:#fffdf7;
+}
+
+.nav-bar-block, .bar {
+ /* background-color: inherit !important;*/
+    background-color:#000000;
+    text-decoration-color: aqua;
+}
+.wel{
+    background: url(../img/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.header{
+    vertical-align: -300px;
+    
+}
+.divider{
+    width:30px;
+    height:auto;
+    display:inline-block;
+}
+.docenter {
+        
+    position: relative; }
+.docenter p{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); 
+}
