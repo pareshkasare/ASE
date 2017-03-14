@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -81,13 +82,13 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
             return;
         }
         //Getting the current location of the user.
-        userCurrentLocation.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+        userCurrentLocation.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 0, 0, userCurrentLocationListener);
         latitute = userCurrentLocation
-                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                .getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 .getLatitude();
         longitude = userCurrentLocation
-                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                .getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 .getLongitude();
         userCurrentLocationCorodinates = new LatLng(latitute,longitude);
         //Getting the address of the user based on latitude and longitude.
@@ -112,12 +113,14 @@ public class Home extends FragmentActivity implements OnMapReadyCallback {
             try {
                 Bitmap marker = BitmapFactory.decodeResource(getResources(), R.drawable.camera);
                 Bitmap newMarker = marker.copy(Bitmap.Config.ARGB_8888, true);
-                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(user_file));
+                FileInputStream fin = new FileInputStream(user_file);
+                Bitmap b = BitmapFactory.decodeStream(fin);
                 Canvas canvas = new Canvas(newMarker);
-                canvas.drawBitmap(b, -20, 0, null);
+                canvas.drawBitmap(b, -130, -80, null);
                 mMap.addMarker(new MarkerOptions().position(userCurrentLocationCorodinates)
                         .title("Your current address.").snippet(userAddress.toString())
                         .icon(BitmapDescriptorFactory.fromBitmap(newMarker)));
+                fin.close();
             }catch (IOException e){
                 e.printStackTrace();
             }

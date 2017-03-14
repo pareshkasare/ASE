@@ -46,8 +46,11 @@ app.controller("googlemapoutput", function ($scope) {
 });
 app.controller("TodoController", function($scope,$window) {
 
+    //window.localStorage.removeItem('udata');
     $scope.saved = localStorage.getItem('udata');
 
+    var accessData = window.localStorage['udata'];
+    //window.alert($scope.saved+accessData);
     $scope.checklogin = function () {
         $scope.saved = localStorage.getItem('udata');
         if (localStorage.getItem('udata') === null) {
@@ -56,8 +59,15 @@ app.controller("TodoController", function($scope,$window) {
         else
         {
             $scope.users = JSON.parse($scope.saved);
-
-            angular.forEach($scope.users, function(user){
+            console.log($scope.saved);
+            console.log($scope.users);
+            window.alert($scope.users);
+            window.alert($scope.saved);
+            var i=0;
+            angular.forEach($scope.saved, function(user){
+                i++;
+                window.alert(user);
+                window.alert(user.username+":"+user.password+"   i: "+i);
                if((user.username === $scope.username) && (user.password === $scope.password))
                 {
                     $window.location.href = '../Front_end/home.html';
@@ -70,17 +80,24 @@ app.controller("TodoController", function($scope,$window) {
 
     $scope.register = function () {
         $scope.saved = localStorage.getItem('udata');
+        var accessData = window.localStorage['udata'];
+        window.alert("in register "+$scope.saved+accessData+$scope.username+$scope.password);
+
         if (localStorage.getItem('udata') === null) {
 
-            $scope.udata = [{username:$scope.username,password:$scope.password}];
+            $scope.udata = "[{\"username\":\""+$scope.username+"\",\"password\":\""+$scope.password+"\"}]";
             localStorage.setItem('udata', JSON.stringify($scope.udata));
+            window.localStorage['udata'] = angular.toJson($scope.udata);
             $window.location.href = '../Front_end/login.html';
         }
         else
         {
             $scope.udata = JSON.parse($scope.saved);
-            $scope.udata.push({usename:$scope.username,password:$scope.password})
+            $scope.udata1 = "{\"username\":\""+$scope.username+"\",\"password\":\""+$scope.password+"\"}";
+            $scope.udata.push($scope.udata1);
+            window.alert("data to write: " + udata);
             localStorage.setItem('udata', JSON.stringify($scope.udata));
+            //window.localStorage['udata'] = angular.toJson($scope.udata);
             $window.location.href = '../Front_end/login.html';
         }
     };
