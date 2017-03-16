@@ -126,12 +126,45 @@ angular.module('starter.controllers', [])
     
     })
     .controller('get_vision_response', function ($scope, $http,audio) {
-        $scope.getvision_response = function(){
-            console.log("watson called 1: " + $scope.url);
+        
+        $scope.homedata = {};
+        $scope.openbrowser = function (){
+            var url = 'https://www.google.com';
+            var target = '_blank';
+            var options = "location=yes"
+            var ref = cordova.InAppBrowser.open(url, target, options);
+            ref.addEventListener('loadstart', loadstartCallback);
+           ref.addEventListener('loadstop', loadstopCallback);
+           ref.addEventListener('loadloaderror', loaderrorCallback);
+           ref.addEventListener('exit', exitCallback);
 
-            var url = $scope.url;
+           function loadstartCallback(event) {
+              console.log('Loading started: '  + event.url)
+           }
+
+           function loadstopCallback(event) {
+              $scope.homedata.url = (event.url);
+              console.log('Loading finished: ' + event.url)
+           }
+
+           function loaderrorCallback(error) {
+              console.log('Loading error: ' + error.message)
+           }
+
+           function exitCallback() {
+              console.log('Browser is closed...');
+              $scope.homedata.url = (event.url);
+           }
+
+        }
+        $scope.getvision_response = function(){
+            
+            console.log("watson called 1: " + $scope.homedata.url);
+
+            var url = $scope.homedata.url;
             if (url != null && url!= "")
             {
+                delete $http.defaults.headers.common['X-Requested-With'];
                 var http_handler = $http.get("https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify" +
                     "?api_key=0e29dd99923d25a4e1f4314e28b0c6b20695f905" +
                     "&url=" + url +
@@ -191,6 +224,7 @@ angular.module('starter.controllers', [])
             })
             http_handler.error(function (data) {
                 alert("Unsuccessful REST call, please try again!!!");
+                console.log("Error: " + data);
             });
 
 

@@ -6,26 +6,27 @@
     <ion-item>
         <h4 >IBM Watson - Image processing</h4>
         </ion-item>
-    
-  <ion-item>
-      <div ng-controller="get_vision_response">
-                <br><label for="basic-url">Image URL</label>
-          
-                    <br><input type="text" class="form-control" ng-model="url">
+        <form ng-submit="getvision_response()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Image URL</span>
+          <input type="text" ng-model="homedata.url">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" ng-click="openbrowser()">Open Browser</button>
 
-                <br><button type="button" class="button button-block button-positive" ng-click="getvision_response()">Let's hear what's in image!!!</button>
+          <span class="divider"></span>
 
-
-    <h4 >Text to Speech for following text will be audible : {{string_text}}</h4> 
-
-              <img ng-src="{{myVar}}" width="100px" height="100px">
-    <div id="player">
+          <button class="button button-block button-positive" type="submit">Let's hear what's in image!!!</button>
+        </label>
+          <h4 >Text to Speech for following text will be audible : </h4> <p>{{string_text}}</p>
+          <img ng-src="{{myVar}}" width="200px" height="150px">
+          <div id="player">
                 <audio contols autoplay ng-src="{{audiofile}}"></audio>
             </div>
-        </div>
-      </ion-item>
-    
-</ion-list>
+      </div>
+    </form>
+      </ion-list>
     
   </ion-content>
 </ion-view>
