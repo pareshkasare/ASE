@@ -1,8 +1,14 @@
-<html>
+<html >
 <head >
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Sign Up Page</title>
+    <title>User Details Page</title>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -32,14 +38,50 @@
     </style>
 </head>
 <body>
-<div class="wrap" style="width:30%;">
+
+<div  ng-app="demoMongo" ng-controller="MongotableController">
+    <section>
+
+        <h1>All users currently stored in database!</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>e-mail</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <input type="hidden" ng-model="formData.id" ng-init="formData.id=user._id"/>
+                    <td> <input type="text" ng-model="formData.fname" ng-init="formData.fname=user.fname"/></td>
+                    <td><input type="text" ng-model="formData.lname" ng-init="formData.lname=user.lname"/></td>
+                    <td><input type="email" ng-model="formData.email" ng-init="formData.email=user.email"/></td>
+                    <td><input type="password" ng-model="formData.pwd" ng-init="formData.pwd=user.password"/></td>
+                    <td><button ng-click="removeUser(user._id,user.email)">remove</button>
+                        <input type="submit" name="Update" value="Update" ng-click="updateUser(user._id,formData.fname,formData.lname,formData.email,formData.pwd)"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
 
     <div class="footer">
 
     </div>
 </div>
-<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>
-<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>
-<script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>
+
+
+
+
 </body>
 </html>
